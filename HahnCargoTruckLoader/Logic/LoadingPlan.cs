@@ -21,11 +21,17 @@ namespace HahnCargoTruckLoader.Logic
            _crates = crates;
     }
 
-    public Dictionary<int, LoadingInstruction> GetLoadingInstructions() {
+    public Dictionary<int, LoadingInstruction> GetLoadingInstructions() 
+    {
 
-      //ToDo
-
-      return _instructions;
+         int totalCrateVolume = _crates.Sum(c => c.Width * c.Height * c.Length);
+         int truckVolume = _truck.Width *  _truck.Height *  _truck.Length;
+ 
+         if (totalCrateVolume > truckVolume)
+            {
+                throw new Exception($"Cannot load crates: total volume {totalCrateVolume} exceeds truck capacity {truckVolume}.");
+            }
+            return _instructions;
     }
 
   }
