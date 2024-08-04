@@ -9,16 +9,23 @@ namespace HahnCargoTruckLoader.Logic
 {
   public class LoadingPlan
   {
-    private readonly Dictionary<int, LoadingInstruction> instructions;
-    public LoadingPlan(Truck truck, List<Crate> crates) {
-      instructions = [];
+        private readonly Dictionary<int, LoadingInstruction> _instructions;
+        private readonly Truck _truck;
+        private readonly List<Crate> _crates; 
+
+    public LoadingPlan(Truck truck, List<Crate> crates) 
+    {
+      
+           _instructions = new Dictionary<int, LoadingInstruction>();
+           _truck = truck;
+           _crates = crates;
     }
 
     public Dictionary<int, LoadingInstruction> GetLoadingInstructions() {
 
       //ToDo
 
-      return instructions;
+      return _instructions;
     }
 
   }
