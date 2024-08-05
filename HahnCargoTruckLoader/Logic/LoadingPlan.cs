@@ -32,7 +32,7 @@ namespace HahnCargoTruckLoader.Logic
 
             if (totalCrateVolume > truckVolume)
             {
-                throw new Exception($"Cannot load crates: total volume {totalCrateVolume} exceeds truck capacity {truckVolume}.");
+                Console.WriteLine($"Cannot load crates: total volume {totalCrateVolume} exceeds truck capacity {truckVolume}.");
             }
 
             // Create a 3D array to represent the truck's cargo space
@@ -70,7 +70,8 @@ namespace HahnCargoTruckLoader.Logic
 
                 if (!placed)
                 {
-                    throw new Exception($"Unable to place crate with ID {crate.CrateID}.");
+                    Console.WriteLine($"Unable to place crate with ID {crate.CrateID}.");
+                    
                 }
 
             }
