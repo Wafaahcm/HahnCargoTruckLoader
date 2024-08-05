@@ -16,7 +16,7 @@ namespace HahnCargoTruckLoader.Logic
       Truck? truck = FileHelper.LoadTruckFromJson();
       if(truck == null)
       {
-        truck = new Truck { TruckType = "H-01", Height = 3, Width = 3, Length = 4 }; //24
+        truck = new Truck { TruckType = "H-01", Height = 2, Width = 3, Length = 4 }; //24
         FileHelper.WriteToFile("Truck", JsonSerializer.Serialize(truck));
       }
       
