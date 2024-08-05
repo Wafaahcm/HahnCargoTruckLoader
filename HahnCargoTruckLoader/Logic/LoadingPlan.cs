@@ -28,11 +28,50 @@ namespace HahnCargoTruckLoader.Logic
          int truckVolume = _truck.Width *  _truck.Height *  _truck.Length;
  
          if (totalCrateVolume > truckVolume)
-            {
+         {
                 throw new Exception($"Cannot load crates: total volume {totalCrateVolume} exceeds truck capacity {truckVolume}.");
-            }
-            return _instructions;
-    }
+         }
+            //Initialisation de l'Espace de Chargement et Tri des Caisses
 
-  }
+            var cargoSpace = new bool[_truck.Width, _truck.Height, _truck.Length];
+            var sortedCrates = _crates.OrderByDescending(c => c.Width * c.Height * c.Length).ToList();
+
+
+            //Placement des caisses :
+
+            int stepNumber = 1;
+
+            foreach ( var crate in sortedCrates )
+            {
+                bool placed = false;
+                var orientations = new List<(int w, int h, int l)>
+                {
+                    (crate.Width, crate.Height, crate.Length),
+                    (crate.Length, crate.Height, crate.Width),
+                    (crate.Width, crate.Length, crate.Height)
+
+                };
+
+                foreach (var (width, height, length) in orientations)
+                {
+                    if (placed) break;
+
+                    placed = TryPlaceCrateAtOrientation(crate, width, height, length, cargoSpace, ref stepNumber);
+                }
+
+                //Gestion des erreurs de placement :
+
+                if (!placed)
+                {
+                    throw new Exception($"Unable to place crate with ID {crate.CrateID}.");
+                }
+
+            }
+             
+           return _instructions;
+
+
+        }
+
+    }
 }
