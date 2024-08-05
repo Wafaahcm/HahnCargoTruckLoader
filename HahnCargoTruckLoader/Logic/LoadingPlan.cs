@@ -121,7 +121,28 @@ namespace HahnCargoTruckLoader.Logic
             return false; // La caisse n'a pas pu être placée
         }
 
-        
+        // Méthode pour vérifier si une caisse peut tenir à une position donnée
+        private bool CanFit(int width, int height, int length, int x, int y, int z, bool[,,] cargoSpace)
+        {
+            // Vérifier si l'espace est déjà occupé
+            for (int dx = 0; dx < width; dx++)
+            {
+                for (int dy = 0; dy < height; dy++)
+                {
+                    for (int dz = 0; dz < length; dz++)
+                    {
+                        if (cargoSpace[x + dx, y + dy, z + dz])
+                        {
+                            return false; // L'espace est déjà occupé
+                        }
+                    }
+                }
+            }
+
+            return true; // L'espace est disponible
+        }
+
+
 
 
     }
